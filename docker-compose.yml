@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - '80:80'
+    networks:
+      - shared_network
+    volumes:
+      - frontend_nginx_config:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: always
+    command: ["nginx", "-g", "daemon off;"]
+
+networks:
+  shared_network:
+    external: true
+
+volumes:
+  frontend_nginx_config:
+    external: true
